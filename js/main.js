@@ -15,7 +15,12 @@ const loadData=(defaultData)=>{
 // show default  data in UI
 const showLimitedData=(data,defaultData)=>{
     console.log(data)
-    data=data.slice(0,defaultData);
+    // data slice and data length less then 6 or getter then 6 show or hide see more button 
+    if (defaultData && data.length > 6) {
+        data=data.slice(0,defaultData);
+        const seeMoreBtn=document.getElementById("see__more_btn");
+        seeMoreBtn.classList.remove("d-none")
+    }
 
     const loadData= document.getElementById("loadCard");
     data.forEach(element => {
