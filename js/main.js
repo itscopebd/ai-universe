@@ -1,19 +1,24 @@
 
 const defaultData=6;
 // load data from api  
-const loadData=()=>{
+const loadData=(defaultData)=>{
+
+    // loading spinner start 
+    loadingSpinner(true);
+
     fetch("https://openapi.programming-hero.com/api/ai/tools")
     .then(res=> res.json())
-    .then(data=> showLimitedData(data))
+    .then(data=> showLimitedData(data.data.tools,defaultData))
     .catch(err=> console.log(err))
 }
 
 // show default  data in UI
-const showLimitedData=(data)=>{
-    // data=data.data.tools.slice(0,defaultData);
+const showLimitedData=(data,defaultData)=>{
+    console.log(data)
+    data=data.slice(0,defaultData);
 
     const loadData= document.getElementById("loadCard");
-    data.data.tools.forEach(element => {
+    data.forEach(element => {
         const {features,image,name,published_in,description}=element;
 
         // // features value iteration 
@@ -51,9 +56,23 @@ const showLimitedData=(data)=>{
        `;
        loadData.appendChild(div)
     });
+
+    // loading spinner stop 
+    loadingSpinner(false)
+}
+
+// loading spinner 
+const loadingSpinner=(isLoading)=>{
+   const loading__spinner= document.getElementById("loading__spinner");
+   if (isLoading) {
+    loading__spinner.classList.remove("d-none")
+   }else{
+    loading__spinner.classList.add("d-none")
+   }
+
 }
 
 
 
 
-loadData();
+loadData(defaultData)
