@@ -30,8 +30,8 @@ const showLimitedData=(data,defaultData)=>{
         const {features,image,name,published_in,description}=element;
 
         // features value iteration 
-      
-
+      const featureData=features.map(data=> `<li>  ${data} </li>`);
+console.log(featureData)
        const div = document.createElement("div");
        div.classList.add("col-12","col-md-6","col-lg-4");
        div.innerHTML=`
@@ -39,17 +39,19 @@ const showLimitedData=(data,defaultData)=>{
          <img src="${image ? image:" No Image"}" class="card-img-top" alt="..." style="height:200px">
          <div class="card-body">
            <h5 class="card-title">Features</h5>
+           <ol>${featureData.join(" ")}</ol>
            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
          </div>
          <div class="card-footer d-flex justify-content-between align-items-center">
            <div>
              <h5 class="card-title">${name ? name :"No Name"}</h5>
+             
              <h6>
                <i class="fa-regular fa-calendar-days"></i> ${published_in ? published_in :"No Date"}
              </h6>
            </div>
            <div>
-             <button class="btn btn-primary">
+             <button class="btn btn-primary" onclick="singleDataFetch('${element.id}')">
                <i class="fa-solid fa-arrow-right"></i>
              </button>
            </div>
@@ -78,8 +80,25 @@ const loadingSpinner=(isLoading)=>{
 
 }
 
+// all data show button click 
 const allDataShow=()=>{
   loadData();
 }
+
+
+// single data fetch  
+const singleDataFetch= async id=>{
+ const url=`https://openapi.programming-hero.com/api/ai/tool/${id}`;
+
+try{
+ const res= await fetch(url);
+ const data= await res.json();
+} catch(error){
+console.log(error)
+}
+
+}
+
+
 
 loadData(defaultData)
