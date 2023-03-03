@@ -5,16 +5,15 @@ const loadData=(defaultData)=>{
 
     // loading spinner start 
     loadingSpinner(true);
-
     fetch("https://openapi.programming-hero.com/api/ai/tools")
     .then(res=> res.json())
-    .then(data=> showLimitedData(data.data.tools,defaultData))
+    .then(data=> showLimitedData(data,defaultData))
     .catch(err=> console.log(err))
 }
 
 // show default  data in UI
 const showLimitedData=(data,defaultData)=>{
-    console.log(data)
+  data=data.data.tools;
     // Data slice and data length less than six or gather than six, show or hide see more button 
     const seeMoreBtn=document.getElementById("see__more_btn");
     if (defaultData && data.length > 6) {
@@ -104,9 +103,26 @@ console.log(error)
 //  single data  and modal show
 const showSingleData=data=>{
 const load_modal= document.getElementById("load_modal");
+// destructuring 
+const {image_link,description,features,integrations,pricing,accuracy,input_output_examples}=data.data;
 
-const {image_link,description,features,integrations,pricing,accuracy}=data.data;
 
+// input_output_examples check and create message 
+const exmapleMessage=[];
+if(input_output_examples===null){
+  const message=`
+        <h5>Can you give any example?</h5>
+       <p>No! Not Yet! Take a break!!!</p>
+  `;
+exmapleMessage.push(message)
+}
+else{
+  const message=`
+  <h5>Hi, how are you doing today?</h5>
+ <p>I'm doing well, thank you for asking. How can I assist you today?</p>
+`;
+exmapleMessage.push(message) 
+}
 
 // pricing data iteration 
 pricingData=[];
@@ -130,7 +146,7 @@ for (const key in features) {
   
 }
 
-console.log(pricing)
+console.log(input_output_examples)
 // integrations data iteration 
 let integrationsData;
 if (integrations !== null) {
@@ -139,8 +155,6 @@ if (integrations !== null) {
     })
 }
 
-
-// console.log(integrationsData)
 load_modal.innerHTML="";
 load_modal.innerHTML=`
 
@@ -179,6 +193,14 @@ load_modal.innerHTML=`
     <span class="badge ${accuracy.score === null ? "d-none":"d-block"}"  id="badge">
     ${accuracy.score * 100}% Accuracy
        </span>
+
+<div class=" text-center mt-5">
+${exmapleMessage}
+
+</div>
+
+
+
     </div>
 
     </div>
@@ -187,5 +209,23 @@ load_modal.innerHTML=`
 </div>
 `;
 }
+
+
+const sortDataLoad=()=>{
+  fetch("https://openapi.programming-hero.com/api/ai/tools")
+  .then(res=> res.json())
+  .then(data=> sortByDate(data))
+  .catch(err=> console.log(err))
+}
+
+const sortByDate=(data)=>{
+data.data.tools.sort((x, y) => {
+  x = new Date(x.published_in),
+   y = new Date(y.published_in);
+ return x - y;
+});
+showLimitedData(data)
+}
+
 
 loadData(defaultData)
