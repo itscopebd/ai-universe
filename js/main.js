@@ -89,6 +89,8 @@ const allDataShow=()=>{
 const singleDataFetch= async id=>{
  const url=`https://openapi.programming-hero.com/api/ai/tool/${id}`;
 
+ console.log(url)
+
 // error handle 
 try{
  const res= await fetch(url);
@@ -105,6 +107,21 @@ const load_modal= document.getElementById("load_modal");
 
 const {image_link,description,features,integrations,pricing,accuracy}=data.data;
 
+
+// pricing data iteration 
+pricingData=[];
+if (pricing !== null) {
+  for (const key in pricing) {
+    const card= `<div class="bg-white p-3 rounded">
+    <p class="text-success">${pricing[key].price} <br>${pricing[key].plan} </p>
+  
+  </div>`;
+  pricingData.push(card);
+    
+  }
+}
+
+
 // features data iteration 
 featureData=[];
 for (const key in features) {
@@ -112,17 +129,19 @@ for (const key in features) {
   featureData.push(li);
   
 }
-if (accuracy.score ==null) {
-const badgeHide=document.getElementById("badge");
-badgeHide.classList.add("d-none")
-  
-}
-// integrations data iteration 
-const integrationsData=integrations.map(value=>{
-return `<li>${value}</li>`
-})
 
-console.log(data)
+console.log(pricing)
+// integrations data iteration 
+let integrationsData;
+if (integrations !== null) {
+  integrationsData=integrations.map(value=>{
+    return `<li>${value}</li>`
+    })
+}
+
+
+// console.log(integrationsData)
+load_modal.innerHTML="";
 load_modal.innerHTML=`
 
 <div class="modal-content">
@@ -139,18 +158,7 @@ load_modal.innerHTML=`
     </div>
 
     <div class="d-flex justify-content-between gap-2 text-center flex-wrap ">
-    <div class="bg-white p-3 rounded">
-        <p class="text-success">${pricing[0] ? pricing[0].price :"Free of Cost/"} <br> ${ pricing[0].plan }</p>
-
-    </div>
-    <div class="bg-white p-3 rounded">
-    <p class="text-wornning">${pricing[1] ? pricing[1].price :"Free of Cost/"} <br> ${ pricing[1].plan }</p>
-
-    </div>
-    <div class="bg-white p-3 rounded">
-    <p class="text-wornning">${pricing[2] ? pricing[2].price :"Free of Cost/"} <br> ${ pricing[2].plan }</p>
-
-    </div>
+    ${ pricing === null ? "Free of Cost" : pricingData.join(" ")}
 </div>
 
 
@@ -161,15 +169,15 @@ load_modal.innerHTML=`
             </div>
             <div>
              <h4>Integrations</h4>
-             <ul>${integrationsData.length >0 ? integrationsData.join(" "):"No data Found"}</ul>
+             <ul>${integrations === null ? "No Data Found":integrationsData.join(" ")}</ul>
             </div>
         </div>
 
     </div>
     <div class="col-11 col-lg-5 py-3 order-0 order-lg-1 order-md-0 border border-1 border-danger position-relative">
     <img src="${image_link[0]}" style="width:100%">
-    <span class="badge"  id="badge">
-    ${accuracy.score * 100} %
+    <span class="badge ${accuracy.score === null ? "d-none":"d-block"}"  id="badge">
+    ${accuracy.score * 100}% Accuracy
        </span>
     </div>
 
