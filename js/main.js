@@ -1,5 +1,6 @@
-
+// limited card show variable decleare 
 const defaultData=6;
+
 // load data from api  
 const loadData=(defaultData)=>{
 
@@ -13,6 +14,8 @@ const loadData=(defaultData)=>{
 
 // show default  data in UI
 const showLimitedData=(data,defaultData)=>{
+
+  // get array data 
     data=data.data.tools;
     // Data slice and data length less than six or gather than six, show or hide see more button 
     const seeMoreBtn=document.getElementById("see__more_btn");
@@ -22,7 +25,7 @@ const showLimitedData=(data,defaultData)=>{
     }else{
       seeMoreBtn.classList.add("d-none")
     }
-console.log(data)
+
     const loadData= document.getElementById("loadCard");
     loadData.innerHTML="";
     data.forEach(element => {
@@ -181,16 +184,17 @@ load_modal.innerHTML=`
 
 
   <div class="d-flex justify-content-between">
-            <div>
+  <div class="row mt-4">
+            <div class="col-xs-12 col-sm-6 col-md-6">
                 <h4>Feature</h4>
                 <ul>${featureData.join(" ")}</ul>
             </div>
-            <div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
              <h4>Integrations</h4>
              <ul>${integrations === null ? "No Data Found":integrationsData.join(" ")}</ul>
             </div>
         </div>
-
+</div>
     </div>
     <div class="col-11 col-lg-5 py-3 order-0 order-lg-1 order-md-0 border border-1 border-danger position-relative">
     <img src="${image_link[0]}" style="width:100%">
@@ -202,8 +206,6 @@ load_modal.innerHTML=`
 ${exmapleMessage}
 
 </div>
-
-
 
     </div>
 
@@ -230,6 +232,7 @@ data.data.tools.sort((x, y) => {
  return x - y;
 });
 
+// default data and all data filter check 
 const seeMoreBtn=document.getElementById("see__more_btn");
 if (seeMoreBtn.classList[1]==="d-none") {
   showLimitedData(data)

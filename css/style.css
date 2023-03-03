@@ -1,6 +1,6 @@
 .modal-dialog {
-    max-width: 50%;
-    margin: 1.75rem auto;
+    width: 60%;
+    max-width: 60%;
 }
 
 .custom__bg {
@@ -30,4 +30,22 @@ p.nullpricing {
     color: green;
     font-size: 18px;
     border-radius: 10px;
+}
+@media(max-width:1505px) and (min-width:600px){
+    .modal-dialog {
+        width: 80%;
+        max-width: 80%;
+    }
+}
+
+@media(max-width:576px){
+    .modal-dialog {
+        width: 80%;
+        max-width: 80%;
+        margin: auto;
+    }
+    span.badge {
+        width: 38%;
+     
+    }
 }
