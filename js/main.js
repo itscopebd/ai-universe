@@ -15,26 +15,23 @@ const loadData=(defaultData)=>{
 // show default  data in UI
 const showLimitedData=(data,defaultData)=>{
     console.log(data)
-    // data slice and data length less then 6 or getter then 6 show or hide see more button 
+    // Data slice and data length less than six or gather than six, show or hide see more button 
+    const seeMoreBtn=document.getElementById("see__more_btn");
     if (defaultData && data.length > 6) {
         data=data.slice(0,defaultData);
-        const seeMoreBtn=document.getElementById("see__more_btn");
         seeMoreBtn.classList.remove("d-none")
+    }else{
+      seeMoreBtn.classList.add("d-none")
     }
 
     const loadData= document.getElementById("loadCard");
+    loadData.innerHTML="";
     data.forEach(element => {
         const {features,image,name,published_in,description}=element;
 
-        // // features value iteration 
-        // let count=0;
-        // let featuresValue;
-        // for (let value of features) {
-        //     count = count++;
-        //     featuresValue += value;
-            
-        // }
-       
+        // features value iteration 
+      
+
        const div = document.createElement("div");
        div.classList.add("col-12","col-md-6","col-lg-4");
        div.innerHTML=`
@@ -60,7 +57,11 @@ const showLimitedData=(data,defaultData)=>{
        </div>
        `;
        loadData.appendChild(div)
+      
+      
     });
+
+   
 
     // loading spinner stop 
     loadingSpinner(false)
@@ -77,7 +78,8 @@ const loadingSpinner=(isLoading)=>{
 
 }
 
-
-
+const allDataShow=()=>{
+  loadData();
+}
 
 loadData(defaultData)
