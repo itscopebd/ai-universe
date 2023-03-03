@@ -12,8 +12,27 @@
         <!-- fontawesome  -->
         <script src="https://kit.fontawesome.com/286c7c8f95.js"
             crossorigin="anonymous"></script>
-    </head onload="loadingSpinner()">
-    <body>
+        <!-- modal width fixed  -->
+        <style>
+                .modal-dialog {
+                    max-width: 50%;
+                    margin: 1.75rem auto;
+                     }
+                     .custom__bg {
+                      background: #ffe6e6;
+                      }
+                      span.badge {
+    position: absolute;
+    top: 21px;
+    right: 21px;
+    width: 24%;
+    height: 25px;
+    line-height: 17px;
+    background: red;
+}
+            </style>
+    </head>
+    <body onload="loadingSpinner()">
         <div class="container py-5 my-5">
             <h3 class="text-center">AI Universe Hub</h3>
             <p class="text-center my-3"><button class="btn btn-danger">Sort By
@@ -40,9 +59,11 @@
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog" id="load_modal">
                 <!-- load modal  -->
-            
+
             </div>
         </div>
+
+
 
         <!-- bootstrap js  -->
         <script
