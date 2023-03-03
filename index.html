@@ -12,25 +12,7 @@
         <!-- fontawesome  -->
         <script src="https://kit.fontawesome.com/286c7c8f95.js"
             crossorigin="anonymous"></script>
-        <!-- modal width fixed  -->
-        <style>
-                .modal-dialog {
-                    max-width: 50%;
-                    margin: 1.75rem auto;
-                     }
-                     .custom__bg {
-                      background: #ffe6e6;
-                      }
-                      span.badge {
-    position: absolute;
-    top: 21px;
-    right: 21px;
-    width: 24%;
-    height: 25px;
-    line-height: 17px;
-    background: red;
-}
-            </style>
+    <link rel="stylesheet" href="css/style.css">
     </head>
     <body onload="loadingSpinner()">
         <div class="container py-5 my-5">
@@ -42,14 +24,6 @@
             </div>
             <p class="text-center d-none" id="see__more_btn"> <button class="btn
                     btn-danger" onclick="allDataShow()">See More </button> </p>
-            <!-- loading spinner  -->
-            <section id="loading__spinner" class="d-none">
-                <div class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                </div>
-            </section>
         </div>
 
 
@@ -62,7 +36,14 @@
 
             </div>
         </div>
-
+  <!-- loading spinner  -->
+  <section id="loading__spinner" class="d-none">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</section>
 
 
         <!-- bootstrap js  -->

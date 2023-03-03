@@ -13,7 +13,7 @@ const loadData=(defaultData)=>{
 
 // show default  data in UI
 const showLimitedData=(data,defaultData)=>{
-  data=data.data.tools;
+    data=data.data.tools;
     // Data slice and data length less than six or gather than six, show or hide see more button 
     const seeMoreBtn=document.getElementById("see__more_btn");
     if (defaultData && data.length > 6) {
@@ -123,20 +123,24 @@ else{
 `;
 exmapleMessage.push(message) 
 }
-
+console.log(pricing)
 // pricing data iteration 
 pricingData=[];
-if (pricing !== null) {
+if (pricing !== null ) {
   for (const key in pricing) {
+    // if (pricing[key].price==='0') {
+      
+      
+    // }
     const card= `<div class="bg-white p-3 rounded">
-    <p class="text-success">${pricing[key].price} <br>${pricing[key].plan} </p>
+    <p class="text-success">${pricing[key].price==='0' ||pricing[key].price==='No cost' ? "Free Of Cost":pricing[key].price } <br>${pricing[key].plan} </p>
   
   </div>`;
   pricingData.push(card);
     
   }
 }
-
+ console.log(pricingData)
 
 // features data iteration 
 featureData=[];
@@ -172,7 +176,7 @@ load_modal.innerHTML=`
     </div>
 
     <div class="d-flex justify-content-between gap-2 text-center flex-wrap ">
-    ${ pricing === null ? "Free of Cost" : pricingData.join(" ")}
+    ${ pricing === null ? "<p class='nullpricing'>Free of Cost</p>" : pricingData.join(" ")}
 </div>
 
 
@@ -212,6 +216,7 @@ ${exmapleMessage}
 
 
 const sortDataLoad=()=>{
+  loadingSpinner(true)
   fetch("https://openapi.programming-hero.com/api/ai/tools")
   .then(res=> res.json())
   .then(data=> sortByDate(data))
@@ -224,7 +229,16 @@ data.data.tools.sort((x, y) => {
    y = new Date(y.published_in);
  return x - y;
 });
-showLimitedData(data)
+
+const seeMoreBtn=document.getElementById("see__more_btn");
+if (seeMoreBtn.classList[1]==="d-none") {
+  showLimitedData(data)
+}
+else{
+  showLimitedData(data,defaultData)
+}
+
+
 }
 
 
