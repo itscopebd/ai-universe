@@ -51,7 +51,7 @@ console.log(featureData)
              </h6>
            </div>
            <div>
-             <button class="btn btn-primary" onclick="singleDataFetch('${element.id}')">
+             <button class="btn btn-primary" onclick="singleDataFetch('${element.id}')" data-bs-toggle="modal" data-bs-target="#detailsModal">
                <i class="fa-solid fa-arrow-right"></i>
              </button>
            </div>
@@ -90,15 +90,32 @@ const allDataShow=()=>{
 const singleDataFetch= async id=>{
  const url=`https://openapi.programming-hero.com/api/ai/tool/${id}`;
 
+// error handle 
 try{
  const res= await fetch(url);
  const data= await res.json();
+ showSingleData(data)
 } catch(error){
 console.log(error)
 }
 
 }
+//  single data  and modal show
+const showSingleData=data=>{
+const load_modal= document.getElementById("load_modal");
+load_modal.innerHTML=`
 
+<div class="modal-content">
+<div class="d-flex justify-content-end">
+    <button type="button" class="btn-close"
+        data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    ...
+</div>
 
+</div>
+`;
+}
 
 loadData(defaultData)
