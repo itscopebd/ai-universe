@@ -52,19 +52,16 @@ const showLimitedData=(data,defaultData)=>{
              </h6>
            </div>
            <div>
-             <button class="btn btn-primary" onclick="singleDataFetch('${element.id}')" data-bs-toggle="modal" data-bs-target="#detailsModal">
+             <button class="btn btn-danger" onclick="singleDataFetch('${element.id}')" data-bs-toggle="modal" data-bs-target="#detailsModal">
                <i class="fa-solid fa-arrow-right"></i>
              </button>
            </div>
          </div>
        </div>
        `;
-       loadData.appendChild(div)
-      
+       loadData.appendChild(div);
       
     });
-
-   
 
     // loading spinner stop 
     loadingSpinner(false)
@@ -86,12 +83,9 @@ const allDataShow=()=>{
   loadData();
 }
 
-
 // single data fetch  
 const singleDataFetch= async id=>{
  const url=`https://openapi.programming-hero.com/api/ai/tool/${id}`;
-
- console.log(url)
 
 // error handle 
 try{
@@ -126,15 +120,10 @@ else{
 `;
 exmapleMessage.push(message) 
 }
-console.log(pricing)
 // pricing data iteration 
 pricingData=[];
 if (pricing !== null ) {
   for (const key in pricing) {
-    // if (pricing[key].price==='0') {
-      
-      
-    // }
     const card= `<div class="bg-white p-3 rounded">
     <p class="text-success">${pricing[key].price==='0' ||pricing[key].price==='No cost' ? "Free Of Cost":pricing[key].price } <br>${pricing[key].plan} </p>
   
@@ -143,7 +132,6 @@ if (pricing !== null ) {
     
   }
 }
- console.log(pricingData)
 
 // features data iteration 
 featureData=[];
@@ -153,7 +141,6 @@ for (const key in features) {
   
 }
 
-console.log(input_output_examples)
 // integrations data iteration 
 let integrationsData;
 if (integrations !== null) {
@@ -183,7 +170,6 @@ load_modal.innerHTML=`
 </div>
 
 
-  <div class="d-flex justify-content-between">
   <div class="row mt-4">
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <h4>Feature</h4>
@@ -194,12 +180,12 @@ load_modal.innerHTML=`
              <ul>${integrations === null ? "No Data Found":integrationsData.join(" ")}</ul>
             </div>
         </div>
-</div>
+
     </div>
     <div class="col-11 col-lg-5 py-3 order-0 order-lg-1 order-md-0 border border-1 border-danger position-relative">
     <img src="${image_link[0]}" style="width:100%">
     <span class="badge ${accuracy.score === null ? "d-none":"d-block"}"  id="badge">
-    ${accuracy.score * 100}% Accuracy
+    ${accuracy.score * 100}% accuracy
        </span>
 
 <div class=" text-center mt-5">
@@ -216,7 +202,7 @@ ${exmapleMessage}
 `;
 }
 
-
+// data sort 
 const sortDataLoad=()=>{
   loadingSpinner(true)
   fetch("https://openapi.programming-hero.com/api/ai/tools")
